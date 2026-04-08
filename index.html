@@ -3,51 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S-Tube Es Batu Kristal</title>
+    <title>S-Tube - Order Es Kristal</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --primary-blue: #0076BE; --light-blue: #E3F2FD; }
         body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #f0f8ff; color: #333; text-align: center; }
-        header { background: linear-gradient(135deg, var(--primary-blue), #00AEEF); color: white; padding: 30px 20px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
-        .logo-img { width: 100px; height: 100px; background: white; border-radius: 50%; margin-bottom: 10px; border: 3px solid white; }
-        .order-container { padding: 25px; background: white; margin: -20px 20px 20px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        input { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; }
-        .btn-order { background-color: #25D366; color: white; border: none; padding: 18px; width: 100%; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .area-tag { display: inline-block; background: var(--light-blue); padding: 5px 12px; border-radius: 20px; margin: 4px; color: var(--primary-blue); font-size: 12px; font-weight: bold; }
-        #status-gps { font-size: 12px; color: #666; margin-top: 5px; }
+        header { background: linear-gradient(135deg, var(--primary-blue), #00AEEF); color: white; padding: 25px 20px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
+        .logo-img { width: 90px; height: 90px; background: white; border-radius: 50%; margin-bottom: 10px; border: 3px solid white; object-fit: contain; }
+        .order-container { padding: 20px; background: white; margin: -20px 15px 20px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        
+        label { display: block; text-align: left; font-size: 13px; font-weight: bold; margin: 10px 0 5px 5px; color: var(--primary-blue); }
+        input, select, textarea { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 15px; font-family: inherit; }
+        
+        .btn-order { background-color: #25D366; color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-size: 17px; font-weight: bold; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); }
+        .status-msg { font-size: 11px; color: #666; margin-top: 8px; }
+        .gps-box { background: #f9f9f9; padding: 10px; border-radius: 10px; border: 1px dashed #ccc; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
 <header>
-    <img src="logo.jpg" alt="S-Tube Logo" class="logo.img">
-    <h1>S-TUBE</h1>
-    <p>Pemesanan Es Batu Kristal</p>
+    <img src="./logo.png" alt="S-Tube" class="logo-img" onerror="this.src='https://via.placeholder.com/90?text=STUBE'">
+    <h1 style="margin:0; font-size: 24px;">S-TUBE</h1>
+    <p style="margin:0; font-size: 14px;">Order Es Kristal & Cek Stok</p>
 </header>
 
 <div class="order-container">
-    <p style="font-weight: bold; color: var(--primary-blue);">Isi Data Pesanan</p>
-    <input type="text" id="nama" placeholder="Nama Lengkap">
-    <input type="number" id="jumlah" placeholder="Jumlah Pesanan (Kantong)">
+    <label>Nama Lengkap</label>
+    <input type="text" id="nama" placeholder="Contoh: Toko Berkah / Bapak Budi">
+
+    <label>Wilayah</label>
+    <select id="wilayah">
+        <option value="">-- Pilih Wilayah --</option>
+        <option value="Surabaya">Surabaya</option>
+        <option value="Sidoarjo">Sidoarjo</option>
+        <option value="Mojokerto">Mojokerto</option>
+        <option value="Pasuruan">Pasuruan</option>
+    </select>
+
+    <label>Jumlah Order (Kantong 5kg)</label>
+    <input type="number" id="jumlah" placeholder="Berapa kantong yang dipesan?">
+
+    <label>Sisa Stok Anda Saat Ini (Kantong)</label>
+    <input type="number" id="sisa_stok" placeholder="Sisa stok di freezer Anda">
+
+    <label>Metode Alamat</label>
+    <select id="metode_lokasi" onchange="toggleAlamat()">
+        <option value="manual">Ketik Alamat Manual</option>
+        <option value="gps">Gunakan GPS Otomatis</option>
+    </select>
+
+    <div id="input_manual">
+        <label>Alamat Lengkap</label>
+        <textarea id="alamat_manual" rows="3" placeholder="Jl. Nama Jalan No, Kec, Kota..."></textarea>
+    </div>
+
+    <div id="input_gps" style="display:none;" class="gps-box">
+        <p style="font-size: 12px; margin: 0;">📍 Lokasi GPS akan otomatis terlampir saat Anda menekan tombol pesan di bawah.</p>
+    </div>
     
     <button class="btn-order" onclick="prosesOrder()">
-        🛒 Pesan Sekarang (Kirim Lokasi)
+        🛒 Kirim Pesanan ke WhatsApp
     </button>
-    <div id="status-gps">Klik tombol untuk kirim pesanan & lokasi GPS otomatis</div>
-</div>
-
-<div style="padding: 20px;">
-    <p style="font-size: 14px; margin-bottom: 5px;">📍 Area Layanan:</p>
-    <span class="area-tag">Surabaya</span>
-    <span class="area-tag">Sidoarjo</span>
-    <span class="area-tag">Mojokerto</span>
-    <span class="area-tag">Pasuruan</span>
+    <div id="status-gps" class="status-msg">Pastikan GPS aktif jika memilih metode otomatis</div>
 </div>
 
 <script>
+    function toggleAlamat() {
+        const metode = document.getElementById('metode_lokasi').value;
+        document.getElementById('input_manual').style.display = (metode === 'manual') ? 'block' : 'none';
+        document.getElementById('input_gps').style.display = (metode === 'gps') ? 'block' : 'none';
+    }
+
     function prosesOrder() {
         const nama = document.getElementById('nama').value;
+        const wilayah = document.getElementById('wilayah').value;
         const jumlah = document.getElementById('jumlah').value;
+        const sisaStok = document.getElementById('sisa_stok').value || "Tidak diisi";
+        const metode = document.getElementById('metode_lokasi').value;
         const statusGps = document.getElementById('status-gps');
 
         if (!nama || !jumlah) {
@@ -55,36 +88,38 @@
             return;
         }
 
-        statusGps.innerHTML = "⏳ Sedang mengambil lokasi...";
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-                    const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
-                    kirimKeWA(nama, jumlah, googleMapsUrl);
-                },
-                (error) => {
-                    alert("Gagal mengambil lokasi. Pastikan GPS HP Aktif. Pesanan tetap dikirim tanpa lokasi.");
-                    kirimKeWA(nama, jumlah, "Lokasi tidak diberikan (GPS Nonaktif)");
-                }
-            );
+        if (metode === 'gps') {
+            statusGps.innerHTML = "⏳ Mengambil koordinat GPS...";
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const loc = `https://www.google.com/maps?q=${position.coords.latitude},${position.coords.longitude}`;
+                        kirimWA(nama, wilayah, jumlah, sisaStok, loc);
+                    },
+                    () => {
+                        alert("Gagal ambil GPS. Silakan gunakan metode manual.");
+                        statusGps.innerHTML = "❌ Gagal ambil GPS";
+                    }
+                );
+            }
         } else {
-            alert("Browser HP Anda tidak mendukung deteksi lokasi.");
-            kirimKeWA(nama, jumlah, "Lokasi tidak didukung perangkat");
+            const alamat = document.getElementById('alamat_manual').value || "Alamat tidak diisi";
+            kirimWA(nama, wilayah, jumlah, sisaStok, alamat);
         }
     }
 
-    function kirimKeWA(nama, jumlah, lokasi) {
+    function kirimWA(nama, wilayah, jumlah, sisa, lokasi) {
         const phone = "6282338804070";
-        const pesan = `Halo S-Tube, saya mau order es kristal:%0A%0A` +
-                      `👤 Nama: ${nama}%0A` +
-                      `📦 Jumlah: ${jumlah} Kantong%0A` +
-                      `📍 Lokasi: ${lokasi}`;
+        const teksWilayah = wilayah ? ` (${wilayah})` : "";
+        const pesan = `*ORDER S-TUBE ES KRISTAL*%0A%0A` +
+                      `👤 *Nama:* ${nama}${teksWilayah}%0A` +
+                      `📦 *Order:* ${jumlah} Kantong%0A` +
+                      `🧊 *Sisa Stok:* ${sisa} Kantong%0A` +
+                      `📍 *Alamat/Lokasi:* ${lokasi}%0A%0A` +
+                      `_Mohon segera diproses ya!_`;
         
         window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${pesan}`, '_blank');
-        document.getElementById('status-gps').innerHTML = "Klik tombol untuk kirim pesanan & lokasi GPS otomatis";
+        document.getElementById('status-gps').innerHTML = "Selesai! Mengalihkan ke WhatsApp...";
     }
 </script>
 
