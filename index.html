@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S-Tube Es Batu Kristal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0076BE;
+            --light-blue: #E3F2FD;
+            --accent-yellow: #FFD700;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+            color: #333;
+        }
+
+        /* Header & Logo */
+        header {
+            background: linear-gradient(135deg, var(--primary-blue), #00AEEF);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-placeholder {
+            background: white;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-blue);
+            border: 4px solid var(--accent-yellow);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .price-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 10px auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .price-card h2 {
+            margin: 0;
+            color: var(--primary-blue);
+        }
+
+        .price-card .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e67e22;
+        }
+
+        /* Form Order */
+        .order-container {
+            padding: 20px;
+            background: white;
+            margin: 20px;
+            border-radius: 15px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .btn-order {
+            background-color: #25D366; /* Warna WhatsApp */
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-order:hover {
+            background-color: #128C7E;
+        }
+
+        /* Area Section */
+        .area-info {
+            padding: 20px;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        .area-tag {
+            display: inline-block;
+            background: var(--light-blue);
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin: 4px;
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo-placeholder">S-TUBE</div>
+    <h1>S-TUBE ES BATU</h1>
+    <p>Kristal, Higienis & Segar</p>
+</header>
+
+<div class="hero">
+    <div class="price-card">
+        <h3>Harga Spesial</h3>
+        <div class="price">Rp 4.000 / 5kg</div>
+        <p>Cocok untuk cafe, resto, dan acara keluarga.</p>
+    </div>
+</div>
+
+<div class="area-info">
+    <p>📍 <strong>Area Layanan:</strong></p>
+    <span class="area-tag">Surabaya</span>
+    <span class="area-tag">Sidoarjo</span>
+    <span class="area-tag">Mojokerto</span>
+    <span class="area-tag">Pasuruan</span>
+</div>
+
+<div class="order-container">
+    <h3>Pesan Sekarang</h3>
+    <input type="text" id="nama" placeholder="Nama Anda" required>
+    <input type="number" id="jumlah" placeholder="Jumlah Pesanan (Kantong 5kg)" required>
+    <textarea id="lokasi" rows="3" placeholder="Alamat Lengkap / Link Google Maps"></textarea>
+    
+    <button class="btn-order" onclick="kirimWA()">
+        🛒 Kirim Pesanan via WhatsApp
+    </button>
+</div>
+
+<footer>
+    &copy; 2024 S-Tube Es Batu Kristal. All Rights Reserved.
+</footer>
+
+<script>
+    function kirimWA() {
+        const nama = document.getElementById('nama').value;
+        const jumlah = document.getElementById('jumlah').value;
+        const lokasi = document.getElementById('lokasi').value;
+        const phone = "6282338804070"; // Format internasional
+
+        if (nama === "" || lokasi === "") {
+            alert("Mohon lengkapi Nama dan Lokasi Anda");
+            return;
+        }
+
+        const pesan = `Halo S-Tube, saya mau order es kristal:%0A%0A` +
+                      `Nama: ${nama}%0A` +
+                      `Jumlah: ${jumlah} Kantong (5kg)%0A` +
+                      `Lokasi: ${lokasi}%0A%0A` +
+                      `Mohon segera diproses ya!`;
+
+        const url = `https://api.whatsapp.com/send?phone=${phone}&text=${pesan}`;
+        window.open(url, '_blank');
+    }
+</script>
+
+</body>
+</html>
